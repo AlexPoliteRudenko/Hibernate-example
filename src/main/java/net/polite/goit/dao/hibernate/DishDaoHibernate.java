@@ -1,7 +1,7 @@
 package net.polite.goit.dao.hibernate;
 
-import net.polite.goit.dao.EmployeeDao;
-import net.polite.goit.dao.model.Employee;
+import net.polite.goit.dao.DishDao;
+import net.polite.goit.dao.model.Dish;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,30 +15,30 @@ import java.util.List;
  * @author Oleksii Polite Rudenko
  * @version 1.0
  */
-public class EmployeeDaoHibernate implements EmployeeDao {
+@Transactional
+public class DishDaoHibernate implements DishDao {
 
     private SessionFactory sessionFactory;
 
     @Override
-    public void remove(Employee employee) {
-        sessionFactory.getCurrentSession().delete(employee);
+    public List<Dish> findAll() {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("FROM Dish").list();
     }
 
     @Override
-    @Transactional
-    public void save(Employee employee) {
-        sessionFactory.getCurrentSession().save(employee);
-    }
-
-    @Override
-    public Employee load(long id) {
+    public Dish load(long id) {
         return null;
     }
 
     @Override
-    public List<Employee> findAll() {
-        Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("FROM Employee").list();
+    public void delete(Dish dish) {
+        sessionFactory.getCurrentSession().delete(dish);
+    }
+
+    @Override
+    public void save(Dish dish) {
+        sessionFactory.getCurrentSession().save(dish);
     }
 
     @Autowired

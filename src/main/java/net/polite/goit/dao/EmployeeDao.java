@@ -11,9 +11,12 @@ import java.util.List;
  * @version 1.0
  */
 public interface EmployeeDao {
+
     void save(Employee employee);
 
     Employee load(long id);
 
     List<Employee> findAll();
+
+    void remove(Employee employee);
 }
