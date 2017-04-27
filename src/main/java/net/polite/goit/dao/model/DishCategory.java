@@ -7,6 +7,6 @@ package net.polite.goit.dao.model;
  * @version 1.0
  */
 public enum DishCategory {
-    SALAD, SIDE_DISH, MAIN
+    SALAD, SIDE_DISH, DESSERT, MAIN
 
 }

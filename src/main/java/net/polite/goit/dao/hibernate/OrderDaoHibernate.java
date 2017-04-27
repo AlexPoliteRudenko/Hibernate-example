@@ -31,7 +31,12 @@ public class OrderDaoHibernate implements OrderDao {
 
     @Override
     public Order load(long id) {
-        return null;
+        return sessionFactory.getCurrentSession().load(Order.class, id);
+    }
+
+    @Override
+    public void deleteAll() {
+        sessionFactory.getCurrentSession().createQuery("DELETE FROM Order").executeUpdate();
     }
 
     @Override

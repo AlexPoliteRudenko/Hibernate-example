@@ -14,9 +14,14 @@ public interface EmployeeDao {
 
     void save(Employee employee);
 
+
     Employee load(long id);
 
     List<Employee> findAll();
 
     void remove(Employee employee);
+
+    Employee findByName(String name);
+
+    void deleteAll();
 }

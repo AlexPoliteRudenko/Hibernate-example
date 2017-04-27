@@ -18,4 +18,6 @@ public interface OrderDao {
     Order load(long id);
 
     void delete(Order order);
+
+    void deleteAll();
 }

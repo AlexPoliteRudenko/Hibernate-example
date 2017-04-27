@@ -4,7 +4,7 @@ import net.polite.goit.dao.DishDao;
 import net.polite.goit.dao.model.Dish;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.query.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -27,8 +27,21 @@ public class DishDaoHibernate implements DishDao {
     }
 
     @Override
+    public Dish findByName(String name) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("FROM Dish d WHERE d.name like :name");
+        query.setParameter("name", name);
+        return (Dish) query.uniqueResult();
+    }
+
+    @Override
+    public void deleteAll() {
+        sessionFactory.getCurrentSession().createQuery("DELETE FROM Dish").executeUpdate();
+    }
+
+    @Override
     public Dish load(long id) {
-        return null;
+        return sessionFactory.getCurrentSession().load(Dish.class,id);
     }
 
     @Override
@@ -41,7 +54,6 @@ public class DishDaoHibernate implements DishDao {
         sessionFactory.getCurrentSession().save(dish);
     }
 
-    @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

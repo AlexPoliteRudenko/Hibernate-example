@@ -24,7 +24,7 @@ public class Dish {
     private float price;
     private float weight;
 
-/*    public Dish() {
+    public Dish() {
     }
 
     public Dish(String name, DishCategory category, float price, float weight) {
@@ -32,7 +32,7 @@ public class Dish {
         this.category = category;
         this.price = price;
         this.weight = weight;
-    }*/
+    }
 
     @Override
     public String toString() {

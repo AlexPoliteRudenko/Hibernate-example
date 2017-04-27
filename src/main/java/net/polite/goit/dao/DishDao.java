@@ -14,8 +14,11 @@ public interface DishDao {
     void save(Dish dish);
 
     List<Dish> findAll();
+    Dish findByName(String name);
 
     Dish load(long id);
 
     void delete(Dish dish);
+
+    void deleteAll();
 }

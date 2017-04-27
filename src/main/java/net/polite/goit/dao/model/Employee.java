@@ -12,6 +12,7 @@ import javax.persistence.*;
  */
 @Entity()
 @Table(name = "employee")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Employee {
 
     @Id
@@ -28,6 +29,17 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     private Position position;
     private Float salary;
+
+    public Employee() {
+    }
+
+    public Employee(String name, String surname, String phoneNumber, Position position, Float salary) {
+        this.name = name;
+        this.surname = surname;
+        this.phoneNumber = phoneNumber;
+        this.position = position;
+        this.salary = salary;
+    }
 
     @Override
     public String toString() {

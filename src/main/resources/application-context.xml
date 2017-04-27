@@ -2,16 +2,21 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
-default-autowire="byName">
+       default-autowire="byName">
 
-    <bean id="main" class="net.polite.goit.Main"/>
+
+    <bean id="main" class="net.polite.goit.Main" init-method="init">
+        <property name="reInit" value="false"/>
+    </bean>
 
     <bean id="employeeController" class="net.polite.goit.controllers.EmployeeController"/>
     <bean id="dishController" class="net.polite.goit.controllers.DishController"/>
+    <bean id="orderController" class="net.polite.goit.controllers.OrderController"/>
+
 
     <bean id="employeeDao" class="net.polite.goit.dao.hibernate.EmployeeDaoHibernate"/>
-    <bean id="dishDaoHibernate" class="net.polite.goit.dao.hibernate.DishDaoHibernate"/>
-
+    <bean id="dishDao" class="net.polite.goit.dao.hibernate.DishDaoHibernate"/>
+    <bean id="orderDao" class="net.polite.goit.dao.hibernate.OrderDaoHibernate"/>
 
     <!--
     &lt;!&ndash;Employee&ndash;&gt;
@@ -29,12 +34,12 @@ default-autowire="byName">
     </bean>
 
     &lt;!&ndash;Dish&ndash;&gt;
-    <bean id="dishDaoHibernate" class="net.polite.goit.dao.hibernate.DishDaoHibernate">
+    <bean id="dishDao" class="net.polite.goit.dao.hibernate.DishDaoHibernate">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <bean id="dishController" class="net.polite.goit.controllers.DishController">
-        <property name="dishDao" ref="dishDaoHibernate"/>
+        <property name="dishDao" ref="dishDao"/>
     </bean>
 
     &lt;!&ndash;Order&ndash;&gt;

@@ -4,6 +4,7 @@ import net.polite.goit.dao.EmployeeDao;
 import net.polite.goit.dao.model.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,20 @@ public class EmployeeDaoHibernate implements EmployeeDao {
     }
 
     @Override
+    public Employee findByName(String name) {
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("FROM Employee e where e.name like :name");
+        query.setParameter("name", name);
+        return (Employee) query.uniqueResult();
+
+    }
+
+    @Override
+    public void deleteAll() {
+        sessionFactory.getCurrentSession().createQuery("DELETE FROM Employee").executeUpdate();
+    }
+
+    @Override
     @Transactional
     public void save(Employee employee) {
         sessionFactory.getCurrentSession().save(employee);
@@ -32,7 +47,7 @@ public class EmployeeDaoHibernate implements EmployeeDao {
 
     @Override
     public Employee load(long id) {
-        return null;
+        return sessionFactory.getCurrentSession().load(Employee.class, id);
     }
 
     @Override
@@ -41,7 +56,6 @@ public class EmployeeDaoHibernate implements EmployeeDao {
         return session.createQuery("FROM Employee").list();
     }
 
-    @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
